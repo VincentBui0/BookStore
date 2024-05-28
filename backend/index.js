@@ -13,6 +13,7 @@ app.get('/', (request, response) => {
     return response.status(234).send('Welcome To My Bookstore');
   });
 
+  //Route for saving a new book
   app.post('/books', async (request, response) => {
     try {
         if (
@@ -32,10 +33,40 @@ app.get('/', (request, response) => {
 
         const book = await Book.create(newBook);
 
-        return response.status(201).send(book);
+      return response.status(201).send(book);
     } catch (error) {
         console.log(error.message);
         response.status(500).send({message:error.message});
+    }
+  });
+
+  // Route for Get All Books frm database
+    app.get('/books', async (request, response) => {
+    try {
+      const books = await Book.find({});
+  
+      return response.status(200).json({
+        count: books.length,
+        data: books
+      });
+    } catch (error) {
+      console.log(error.message);
+      response.status(500).send({ message: error.message });
+    }
+  });
+
+  // Route for Get One Book from database by id
+    app.get('/books/:id', async (request, response) => {
+    try {
+  
+      const { id } = request.params;
+  
+      const book = await Book.findById(id);
+  
+      return response.status(200).json(book);
+    } catch (error) {
+      console.log(error.message);
+      response.status(500).send({ message: error.message });
     }
   });
 
