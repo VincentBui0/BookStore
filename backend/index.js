@@ -2,8 +2,8 @@ import express from "express";
 import {PORT} from "./config.js";
 import mongoose from 'mongoose';
 import booksRoute from './routes/booksRoute.js';
-import cors from 'cors';
 import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 
 const app = express();
@@ -11,10 +11,10 @@ const app = express();
 //Middleware for parsing request body
 app.use(express.json());
 
-// Middleware to manage CORS policy
-// Option 1: Permit all origins with default settings
+// Middleware for handling CORS POLICY
+// Option 1: Allow All Origins with Default of cors(*)
 app.use(cors());
-// Option 2: Permit specific origins
+// Option 2: Allow Custom Origins
 // app.use(
 //   cors({
 //     origin: 'http://localhost:3000',
@@ -22,7 +22,6 @@ app.use(cors());
 //     allowedHeaders: ['Content-Type'],
 //   })
 // );
-
 
 app.get('/', (request, response) => {
     console.log(request);
