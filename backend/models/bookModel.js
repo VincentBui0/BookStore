@@ -14,6 +14,18 @@ const bookSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
+    pageNumber: {
+      type: Number,
+      required: true,
+    },
+    rating: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

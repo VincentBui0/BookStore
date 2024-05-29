@@ -9,6 +9,9 @@ const AddNew = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publishYear, setPublishYear] = useState('');
+  const [category, setCategory] = useState('');
+  const [pageNumber, setPageNumber] = useState('');
+  const [rating, setRating] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -18,6 +21,9 @@ const AddNew = () => {
       title,
       author,
       publishYear,
+      category,
+      pageNumber,
+      rating,
     };
     setLoading(true);
     axios
@@ -65,6 +71,33 @@ const AddNew = () => {
             type='number'
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Category</label>
+          <input
+            type='text'
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Page Number</label>
+          <input
+            type='text'
+            value={pageNumber}
+            onChange={(e) => setPageNumber(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Rating</label>
+          <input
+            type='text'
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>

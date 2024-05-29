@@ -9,6 +9,9 @@ const Edit = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publishYear, setPublishYear] = useState('');
+  const [category, setCategory] = useState('');
+  const [pageNumber, setPageNumber] = useState('');
+  const [rating, setRating] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {id} = useParams();
@@ -21,6 +24,9 @@ const Edit = () => {
         setAuthor(response.data.author);
         setPublishYear(response.data.publishYear)
         setTitle(response.data.title)
+        setCategory(response.data.category)
+        setPageNumber(response.data.pageNumber)
+        setRating(response.data.rating)
         setLoading(false);
       }).catch((error) => {
         setLoading(false);
@@ -34,6 +40,9 @@ const Edit = () => {
       title,
       author,
       publishYear,
+      category,
+      pageNumber,
+      rating
     };
     setLoading(true);
     axios
@@ -81,6 +90,33 @@ const Edit = () => {
             type='number'
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
+            className='border-2 border-orange-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-pink-500'>Category</label>
+          <input
+            type='text'
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className='border-2 border-orange-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-pink-500'>Page Number</label>
+          <input
+            type='number'
+            value={pageNumber}
+            onChange={(e) => setPageNumber(e.target.value)}
+            className='border-2 border-orange-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-pink-500'>Rating</label>
+          <input
+            type='text'
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
             className='border-2 border-orange-500 px-4 py-2  w-full '
           />
         </div>

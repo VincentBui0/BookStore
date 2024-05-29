@@ -20,6 +20,18 @@ const SingleCard = ({ book }) => {
         <BiUserCircle className='text-red-300 text-2xl' />
         <h2 className='my-1'>{book.author}</h2>
       </div>
+      <div className='flex justify-start items-center gap-x-2'>
+        <PiBookOpenTextLight className='text-red-300 text-2xl' />
+        <h2 className='my-1'>{book.category}</h2>
+      </div>
+      <div className='flex justify-start items-center gap-x-2'>
+        <PiBookOpenTextLight className='text-red-300 text-2xl' />
+        <h2 className='my-1'>{book.pageNumber}</h2>
+      </div>
+      <div className='flex justify-start items-center gap-x-2'>
+        <PiBookOpenTextLight className='text-red-300 text-2xl' />
+        <h2 className='my-1'>{book.rating}</h2>
+      </div>
       <div className='flex justify-between items-center gap-x-2 mt-4 p-4'>
         <Link to={`/books/details/${book._id}`}>
           <BsInfoCircle className='text-2xl text-green-800 hover:text-black' />
