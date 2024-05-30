@@ -1,30 +1,36 @@
+// Import necessary modules and components from React and other libraries
 import React, { useState } from 'react';
-import BackButton from '../components/GoBack';
-import Spinner from '../components/Spinner';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import BackButton from '../components/GoBack'; // Custom back button component
+import Spinner from '../components/Spinner'; // Custom spinner component for loading state
+import axios from 'axios'; // Library for making HTTP requests
+import { useNavigate, useParams } from 'react-router-dom'; // Hooks for navigation and URL parameters
+import { useSnackbar } from 'notistack'; // Hook for displaying notifications
 
+// Define the Delete component
 const Delete = () => {
+  // useState hook to manage the loading state
   const [loading, setLoading] = useState(false);
+  // Hook to programmatically navigate to different routes
   const navigate = useNavigate();
+  // Hook to get the 'id' parameter from the URL
   const { id } = useParams();
+  // Hook to display notifications
   const { enqueueSnackbar } = useSnackbar();
 
+  // Function to handle book deletion
   const handleDeleteBook = () => {
-    setLoading(true);
+    setLoading(true); // Set loading state to true
     axios
-      .delete(`http://localhost:5555/books/${id}`)
+      .delete(`http://localhost:5555/books/${id}`) // Send DELETE request to the server
       .then(() => {
-        setLoading(false);
-        enqueueSnackbar('Book has been deleted!', { variant: 'success' });
-        navigate('/');
+        setLoading(false); // Set loading state to false on success
+        enqueueSnackbar('Book has been deleted!', { variant: 'success' }); // Show success notification
+        navigate('/'); // Navigate to the home page
       })
       .catch((error) => {
-        setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar('Error', { variant: 'error' });
-        console.log(error);
+        setLoading(false); // Set loading state to false on error
+        enqueueSnackbar('Error', { variant: 'error' }); // Show error notification
+        console.log(error); // Log the error to the console
       });
   };
   

@@ -1,40 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import BackButton from '../components/GoBack';
-import Spinner from '../components/Spinner';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import BackButton from '../components/GoBack'; // Custom back button component
+import Spinner from '../components/Spinner'; // Custom spinner component for loading state
+import axios from 'axios'; // Library for making HTTP requests
+import { useNavigate, useParams } from 'react-router-dom'; // Hooks for navigation and accessing URL parameters
+import { useSnackbar } from 'notistack'; // Hook for displaying notifications
 
+// Define the Edit component
 const Edit = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState('');
-  const [category, setCategory] = useState('');
-  const [pageNumber, setPageNumber] = useState('');
-  const [rating, setRating] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const {id} = useParams();
-  const { enqueueSnackbar } = useSnackbar();
+  // useState hooks to manage form input states
+  const [title, setTitle] = useState(''); // State for book title
+  const [author, setAuthor] = useState(''); // State for book author
+  const [publishYear, setPublishYear] = useState(''); // State for book publish year
+  const [category, setCategory] = useState(''); // State for book category
+  const [pageNumber, setPageNumber] = useState(''); // State for book page number
+  const [rating, setRating] = useState(''); // State for book rating
+  const [loading, setLoading] = useState(false); // State to manage the loading state
+  const navigate = useNavigate(); // Hook for navigation
+  const { id } = useParams(); // Hook to get the 'id' parameter from the URL
+  const { enqueueSnackbar } = useSnackbar(); // Hook to show notifications
 
+  // useEffect hook to fetch book data when the component mounts
   useEffect(() => {
-    setLoading(true);
-    axios.get(`http://localhost:5555/books/${id}`)
-    .then((response) => {
+    setLoading(true); // Set loading state to true
+    axios.get(`http://localhost:5555/books/${id}`) // Send GET request to fetch book details by ID
+      .then((response) => {
+        // Set form input states with the fetched data
         setAuthor(response.data.author);
-        setPublishYear(response.data.publishYear)
-        setTitle(response.data.title)
-        setCategory(response.data.category)
-        setPageNumber(response.data.pageNumber)
-        setRating(response.data.rating)
-        setLoading(false);
-      }).catch((error) => {
-        setLoading(false);
-        alert('An error happened. Please Check console');
-        console.log(error);
+        setPublishYear(response.data.publishYear);
+        setTitle(response.data.title);
+        setCategory(response.data.category);
+        setPageNumber(response.data.pageNumber);
+        setRating(response.data.rating);
+        setLoading(false); // Set loading state to false after data is loaded
+      })
+      .catch((error) => {
+        setLoading(false); // Set loading state to false even if there is an error
+        alert('An error happened. Please check console'); // Show alert message for error
+        console.log(error); // Log error to console
       });
-  }, [])
-  
+  }, [id]); // Dependency array with 'id' ensures this effect runs when the 'id' changes
+
+  // Function to handle form submission for editing the book
   const handleEditBook = () => {
     const data = {
       title,
@@ -44,19 +50,17 @@ const Edit = () => {
       pageNumber,
       rating
     };
-    setLoading(true);
-    axios
-      .put(`http://localhost:5555/books/${id}`, data)
+    setLoading(true); // Set loading state to true
+    axios.put(`http://localhost:5555/books/${id}`, data) // Send PUT request to update book details
       .then(() => {
-        setLoading(false);
-        enqueueSnackbar('Book has been edited!', { variant: 'success' });
-        navigate('/');
+        setLoading(false); // Set loading state to false after request is complete
+        enqueueSnackbar('Book has been edited!', { variant: 'success' }); // Show success notification
+        navigate('/'); // Navigate to the home page
       })
       .catch((error) => {
-        setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar('Error', { variant: 'error' });
-        console.log(error);
+        setLoading(false); // Set loading state to false even if there is an error
+        enqueueSnackbar('Error', { variant: 'error' }); // Show error notification
+        console.log(error); // Log error to console
       });
   };
 

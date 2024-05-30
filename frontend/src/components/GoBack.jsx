@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
 
+//Enable button for going back
 const BackButton = ({ destination = '/' }) => {
   return (
     <div className='flex'>

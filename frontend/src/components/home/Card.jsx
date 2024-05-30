@@ -1,4 +1,5 @@
 import SingleCard from './SingleCard';
+//Option to configure formatting of entries into that of Cards
 
 const Card = ({ books }) => {
   return (

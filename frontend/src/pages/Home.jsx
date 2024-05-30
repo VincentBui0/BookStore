@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Spinner from '../components/Spinner';
-import { Link } from 'react-router-dom';
-import { MdOutlineAddBox } from 'react-icons/md';
-import Table from '../components/home/Table';
-import Card from '../components/home/Card';
+import axios from 'axios'; // Library for making HTTP requests
+import Spinner from '../components/Spinner'; // Custom spinner component for loading state
+import { Link } from 'react-router-dom'; // Link component for navigation
+import { MdOutlineAddBox } from 'react-icons/md'; // Icon component from react-icons library
+import Table from '../components/home/Table'; // Custom Table component
+import Card from '../components/home/Card'; // Custom Card component
 
+// Define the Home component
 const Home = () => {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showType, setShowType] = useState('table');
+  // useState hooks to manage state variables
+  const [books, setBooks] = useState([]); // State to store the list of books
+  const [loading, setLoading] = useState(false); // State to manage the loading state
+  const [showType, setShowType] = useState('table'); // State to toggle between 'table' and 'card' view
 
+  // useEffect hook to perform side effects (e.g., data fetching) when the component mounts
   useEffect(() => {
-    setLoading(true);
+    setLoading(true); // Set loading state to true
     axios
-      .get('http://localhost:5555/books')
+      .get('http://localhost:5555/books') // Send GET request to fetch books data
       .then((response) => {
-        setBooks(response.data.data);
-        setLoading(false);
+        setBooks(response.data.data); // Update books state with the fetched data
+        setLoading(false); // Set loading state to false after data is loaded
       })
       .catch((error) => {
-        console.log(error);
-        setLoading(false);
+        console.log(error); // Log any error that occurs during the request
+        setLoading(false); // Set loading state to false even if there is an error
       });
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once when the component mounts
 
   return (
     <div className='p-4'>

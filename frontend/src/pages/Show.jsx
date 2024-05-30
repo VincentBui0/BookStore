@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import BackButton from '../components/GoBack';
-import Spinner from '../components/Spinner';
+import axios from 'axios'; // Library for making HTTP requests
+import { useParams } from 'react-router-dom'; // Hook for accessing URL parameters
+import BackButton from '../components/GoBack'; // Custom back button component
+import Spinner from '../components/Spinner'; // Custom spinner component for loading state
 
+// Define the ShowBook component
 const ShowBook = () => {
-  const [book, setBook] = useState({});
-  const [loading, setLoading] = useState(false);
-  const { id } = useParams();
+  // useState hooks to manage state variables
+  const [book, setBook] = useState({}); // State to store the book details
+  const [loading, setLoading] = useState(false); // State to manage the loading state
+  const { id } = useParams(); // Hook to get the 'id' parameter from the URL
 
+  // useEffect hook to perform side effects (e.g., data fetching) when the component mounts
   useEffect(() => {
-    setLoading(true);
+    setLoading(true); // Set loading state to true
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`http://localhost:5555/books/${id}`) // Send GET request to fetch book details by ID
       .then((response) => {
-        setBook(response.data);
-        setLoading(false);
+        setBook(response.data); // Update book state with the fetched data
+        setLoading(false); // Set loading state to false after data is loaded
       })
       .catch((error) => {
-        console.log(error);
-        setLoading(false);
+        console.log(error); // Log any error that occurs during the request
+        setLoading(false); // Set loading state to false even if there is an error
       });
-  }, []);
+  }, [id]); // Dependency array with 'id' ensures this effect runs when the 'id' changes
+
 
   return (
     <div className='p-4'>

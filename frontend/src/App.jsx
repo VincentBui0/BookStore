@@ -5,6 +5,7 @@ import AddNew from './pages/AddNew';
 import Show from './pages/Show';
 import Edit from './pages/Edit';
 import Delete from './pages/Delete';
+//Show imports from pages and show route paths for CRUD commands
 
 const App = () => {
   return (
