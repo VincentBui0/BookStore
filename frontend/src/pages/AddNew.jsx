@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
-import BackButton from '../components/GoBack';
-import Spinner from '../components/Spinner';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+// Importing necessary React hooks and components
+import BackButton from '../components/GoBack'; // Custom BackButton component for navigation
+import Spinner from '../components/Spinner'; // Custom Spinner component for loading state
+import axios from 'axios'; // Importing axios for making HTTP requests
+import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook for programmatic navigation
+import { useSnackbar } from 'notistack'; // Importing useSnackbar hook for displaying notifications
 
 const AddNew = () => {
+  // Defining state variables for the form fields using useState hook
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publishYear, setPublishYear] = useState('');
   const [category, setCategory] = useState('');
   const [pageNumber, setPageNumber] = useState('');
   const [rating, setRating] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false); // State variable to manage loading state
+  const navigate = useNavigate(); // Hook to navigate programmatically
+  const { enqueueSnackbar } = useSnackbar(); // Hook to show notifications
 
+  // Function to handle saving a new book
   const handleSaveBook = () => {
+    // Creating a data object with the state values
     const data = {
       title,
       author,
@@ -25,19 +29,21 @@ const AddNew = () => {
       pageNumber,
       rating,
     };
-    setLoading(true);
+    
+    setLoading(true); // Setting loading state to true
+    
+    // Making a POST request to the server to save the book data
     axios
       .post('http://localhost:5555/books', data)
       .then(() => {
-        setLoading(false);
-        enqueueSnackbar('Book Created successfully', { variant: 'success' });
-        navigate('/');
+        setLoading(false); // Setting loading state to false upon success
+        enqueueSnackbar('Book Created successfully', { variant: 'success' }); // Showing success notification
+        navigate('/'); // Navigating to the home page
       })
       .catch((error) => {
-        setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar('Error', { variant: 'error' });
-        console.log(error);
+        setLoading(false); // Setting loading state to false upon error
+        enqueueSnackbar('Error', { variant: 'error' }); // Showing error notification
+        console.log(error); // Logging the error to the console
       });
   };
 
